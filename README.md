@@ -75,7 +75,7 @@ The scripts honor `XDG_CONFIG_HOME` and `XDG_DATA_HOME`. Keep machine-specific J
 - `config/palette.json`: every color used by this repository, defined once.
 - `config/*.in`: templates with `{{color}}` markers; `scripts/build-theme.py` turns them into the files below.
 - `config/starship.toml`: prompt colors, modules, SSH detection, and OS symbols. Generated.
-- `config/ghostty/config.ghostty`: 85% opacity and background blur (macOS).
+- `config/ghostty/config.ghostty`: matching colors, opacity, and background blur (macOS). Generated.
 - `config/linux/gnome-terminal.dconf`: matching colors, 5% transparency, and font for GNOME Terminal (Linux). Generated.
 - `config/linux/blur-my-shell.dconf`: matching blur strength and tint for the "Blur my Shell" extension (Linux).
 - `config/fastfetch/config.jsonc`: fallback startup information. Generated.
@@ -89,7 +89,7 @@ The scripts honor `XDG_CONFIG_HOME` and `XDG_DATA_HOME`. Keep machine-specific J
 
 ## Colors
 
-Every color lives once, in `config/palette.json`. The three theme files are generated from the `config/*.in` templates, so do not edit them directly; the generator overwrites them.
+Every color lives once, in `config/palette.json`, and so does the window opacity. The theme files for both platforms are generated from the `config/*.in` templates, so do not edit them directly; the generator overwrites them.
 
 ```sh
 # edit config/palette.json, then:
@@ -99,7 +99,9 @@ python3 scripts/install.py --desktop   # apply the result
 
 Commit the palette and the generated files together. `python3 scripts/build-theme.py --check` fails if they disagree.
 
-A marker takes an optional form: `{{green}}` gives `#a7c080`, `{{green:upper}}` gives `#A7C080` for the dconf file, and `{{green:rgb}}` gives the ANSI escape `38;2;167;192;128` that fastfetch needs for logo colors.
+A marker takes an optional form: `{{green}}` gives `#a7c080`, `{{green:upper}}` gives `#A7C080` for the dconf file, `{{green:rgb}}` gives the ANSI escape `38;2;167;192;128` that fastfetch needs for logo colors, and `{{opacity:percent}}` turns the opacity `0.95` into the `5` that GNOME Terminal wants as a transparency percentage.
+
+The blur settings in `config/linux/blur-my-shell.dconf` are not generated. Its white tint and blur radius appear in that one file only, so they are already a single decision.
 
 ## Credits
 

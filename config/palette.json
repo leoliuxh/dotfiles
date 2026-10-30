@@ -4,8 +4,10 @@
     "Edit a value here, then run: python3 scripts/build-theme.py",
     "That writes config/starship.toml, config/fastfetch/config.jsonc and",
     "config/linux/gnome-terminal.dconf from the matching .in templates.",
-    "Do not edit those three files directly; the generator overwrites them.",
-    "Palette: Everforest Dark Hard (https://github.com/sainnhe/everforest)."
+    "Do not edit the generated files directly; the generator overwrites them.",
+    "Palette: Everforest Dark Hard (https://github.com/sainnhe/everforest).",
+    "opacity is the window opacity: 0.95 means 5% of the desktop shows through.",
+    "Both GNOME Terminal and Ghostty get it from here, in the form each one wants."
   ],
 
   "bg": "#21272b",
@@ -23,5 +25,7 @@
   "orange": "#e69875",
   "red": "#e67e80",
   "blue": "#7fbbb3",
-  "purple": "#d699b6"
+  "purple": "#d699b6",
+
+  "opacity": 0.95
 }

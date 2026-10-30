@@ -1,6 +1,6 @@
 [:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
 background-color='{{bg:upper}}'
-background-transparency-percent=5
+background-transparency-percent={{opacity:percent}}
 bold-is-bright=true
 font='JetBrainsMono Nerd Font Mono 12'
 foreground-color='{{fg:upper}}'

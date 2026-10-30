@@ -7,9 +7,10 @@ of the colors. This script fills the markers in and writes the result
 next to the template, without the .in suffix.
 
 Markers:
-    {{green}}          #a7c080        lowercase hex, the usual form
-    {{green:upper}}    #A7C080        uppercase hex, for the dconf file
-    {{green:rgb}}      38;2;167;192;128   ANSI escape, for fastfetch logos
+    {{green}}            #a7c080              the value as written
+    {{green:upper}}      #A7C080              uppercase hex, for dconf
+    {{green:rgb}}        38;2;167;192;128     ANSI escape, for fastfetch logos
+    {{opacity:percent}}  5                    (1 - value) as a percent, for dconf
 
 Run it after every change to the palette, then commit both the palette
 and the generated files.
@@ -31,10 +32,9 @@ def load_palette():
     return {k: v for k, v in data.items() if not k.startswith('_')}
 
 
-def as_rgb(hex_color):
-    """'#a7c080' -> '38;2;167;192;128' (an ANSI truecolor escape)."""
-    r, g, b = (int(hex_color[i:i + 2], 16) for i in (1, 3, 5))
-    return f'38;2;{r};{g};{b}'
+def channels(hex_color):
+    """'#a7c080' -> (167, 192, 128)."""
+    return tuple(int(hex_color[i:i + 2], 16) for i in (1, 3, 5))
 
 
 def render(text, palette, source):
@@ -42,15 +42,21 @@ def render(text, palette, source):
     def one(match):
         name, form = match.group(1), match.group(2)
         if name not in palette:
-            raise SystemExit(f'{source}: no color named {name!r} in {PALETTE.name}')
+            raise SystemExit(f'{source}: nothing named {name!r} in {PALETTE.name}')
         value = palette[name]
+
         if form is None:
-            return value
+            return str(value)
+        if form == 'percent':
+            return str(round((1 - value) * 100))
+        if form not in ('upper', 'rgb'):
+            raise SystemExit(f'{source}: unknown marker form {form!r}')
+
+        if not isinstance(value, str):
+            raise SystemExit(f'{source}: {name!r} is not a color, so :{form} does not apply')
         if form == 'upper':
             return value.upper()
-        if form == 'rgb':
-            return as_rgb(value)
-        raise SystemExit(f'{source}: unknown marker form {form!r} (use upper or rgb)')
+        return '38;2;%d;%d;%d' % channels(value)
 
     return MARKER.sub(one, text)
 

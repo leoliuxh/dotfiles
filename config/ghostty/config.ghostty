@@ -1,3 +1,26 @@
+# Generated from config/palette.json by scripts/build-theme.py. Do not edit.
+
 # Translucent background
-background-opacity = 0.85
+background-opacity = 0.95
 background-blur = true
+
+# Everforest Dark Hard, the same colors the Linux profile uses
+background = #21272b
+foreground = #e6dfcb
+
+palette = 0=#2e383c
+palette = 1=#e67e80
+palette = 2=#a7c080
+palette = 3=#dbbc7f
+palette = 4=#7fbbb3
+palette = 5=#d699b6
+palette = 6=#8fc9a0
+palette = 7=#e6dfcb
+palette = 8=#a8b3aa
+palette = 9=#e67e80
+palette = 10=#a7c080
+palette = 11=#dbbc7f
+palette = 12=#7fbbb3
+palette = 13=#d699b6
+palette = 14=#8fc9a0
+palette = 15=#e6dfcb
