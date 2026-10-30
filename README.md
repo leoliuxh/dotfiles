@@ -62,7 +62,3 @@ The scripts honor `XDG_CONFIG_HOME` and `XDG_DATA_HOME`. Keep machine-specific J
 
 Prompt adapted from Starship's [Tokyo Night preset](https://starship.rs/presets/tokyo-night), part of the [ISC-licensed Starship project](https://github.com/starship/starship).
 Sprite files are downloaded from [pokemon-colorscripts-mac](https://github.com/nuke-dash/pokemon-colorscripts-mac), pinned to commit `6aa0cd93b255bee35c5716652b8b7dfecb5fcfa2`; its license is saved with the downloaded assets. Metadata comes from [PokeAPI](https://github.com/PokeAPI/pokeapi). Pokemon names and designs belong to their respective owners. Assets are not committed to this repository.
-
-## Publishing
-
-This repository is prepared locally and has not been uploaded. Review its files, make an initial commit, then create a private GitHub repository and add that repository as `origin`.
