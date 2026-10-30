@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+import csv
+import json
+import os
+import random
+import re
+import shutil
+import subprocess
+import tempfile
+from pathlib import Path
+
+starship = shutil.which('starship')
+os_icon = ''
+if starship:
+    try:
+        result = subprocess.run([starship, 'module', 'os'], capture_output=True, text=True, timeout=3)
+        os_icon = re.sub(r'\x1b\[[0-9;]*m', '', result.stdout).strip()
+    except subprocess.TimeoutExpired:
+        pass
+
+root = Path(os.environ.get('XDG_DATA_HOME', str(Path.home() / '.local/share'))) / 'pokemon-colorscripts'
+config_home = Path(os.environ.get('XDG_CONFIG_HOME', str(Path.home() / '.config')))
+fastfetch = shutil.which('fastfetch')
+if not fastfetch:
+    raise SystemExit('Install fastfetch to display the welcome panel.')
+if not (root / 'data/species.csv').is_file() or not (root / 'colorscripts-small').is_dir():
+    raise SystemExit(subprocess.run([fastfetch]).returncode)
+def read(name):
+    with (root / 'data' / name).open() as f:
+        return list(csv.DictReader(f))
+species = {r['identifier']: r for r in read('species.csv')}
+types = {r['id']: r['identifier'].title() for r in read('types.csv')}
+by_id = {}
+for r in read('pokemon_types.csv'):
+    by_id.setdefault(r['pokemon_id'], []).append(types[r['type_id']])
+aliases = {'farfetchd': 'farfetchd', 'sirfetchd': 'sirfetchd'}
+choices = [p for p in (root / 'colorscripts-small').glob('*.txt') if aliases.get(p.stem, p.stem) in species]
+if not choices:
+    raise SystemExit(subprocess.run([fastfetch]).returncode)
+p = random.choice(choices)
+r = species[aliases.get(p.stem, p.stem)]
+config_file = config_home / 'fastfetch/config.jsonc'
+config = json.loads(config_file.read_text()) if config_file.exists() else {}
+config['logo'] = {'type': 'file-raw', 'source': str(p), 'position': 'right', 'padding': {'left': 3, 'right': 0}}
+config['modules'] = [
+    'title', 'separator',
+    {'type': 'datetime', 'key': 'Date', 'format': '{weekday-short}, {month-name-short} {day-in-month}'},
+    {'type': 'os', 'key': 'OS', 'format': (os_icon + ' {name} {version} ({build-id}) {arch}').lstrip()}, {'type': 'custom', 'key': 'Shell', 'format': Path(os.environ.get('SHELL', '/bin/zsh')).name}, 'terminal', 'memory',
+    'break',
+    {'type': 'custom', 'key': 'Pokémon', 'format': p.stem.replace('-', ' ').title()},
+    {'type': 'custom', 'key': 'Pokédex', 'format': '#' + r['id'].zfill(3)},
+    {'type': 'custom', 'key': 'Type', 'format': ' / '.join(by_id[r['id']])}
+]
+with tempfile.NamedTemporaryFile(mode='w', suffix='.json') as f:
+    json.dump(config, f)
+    f.flush()
+    subprocess.run([shutil.which('fastfetch') or 'fastfetch', '--config', f.name, '--key-width', '10'], check=True)

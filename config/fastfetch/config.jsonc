@@ -1,0 +1,20 @@
+{
+  "logo": {
+    "type": "auto"
+  },
+  "modules": [
+    "title",
+    "separator",
+    {
+      "type": "datetime",
+      "key": "Date",
+      "format": "{weekday}, {month-name-short} {day-in-month}"
+    },
+    "os",
+    "host",
+    "shell",
+    "terminal",
+    "uptime",
+    "memory"
+  ]
+}

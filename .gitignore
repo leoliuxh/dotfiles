@@ -1,0 +1,8 @@
+.DS_Store
+__pycache__/
+*.pyc
+*.bak
+.env
+.env.*
+*.local
+private/
