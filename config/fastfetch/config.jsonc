@@ -2,9 +2,15 @@
   "logo": {
     "type": "small"
   },
+  "display": {
+    "color": {
+      "title": "#7aa2f7",
+      "keys": "#bb9af7"
+    }
+  },
   "modules": [
     "title",
-    "separator",
+    { "type": "separator", "string": "─" },
     {
       "type": "datetime",
       "key": "Date",
