@@ -1,0 +1,30 @@
+#!/bin/sh
+# Turn the startup welcome panel (Pokemon sprite + system info) on or off.
+# Setting is saved, so it stays the same across new terminals. SSH sessions
+# always skip the panel regardless of this setting.
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
+state_file="$state_dir/welcome"
+mkdir -p "$state_dir"
+
+current=1
+[ -r "$state_file" ] && current=$(cat "$state_file")
+
+case "$1" in
+  on)  new=1 ;;
+  off) new=0 ;;
+  status)
+    [ "$current" = 0 ] && echo 'Welcome panel: off' || echo 'Welcome panel: on'
+    exit 0
+    ;;
+  '')
+    [ "$current" = 0 ] && new=1 || new=0
+    ;;
+  *)
+    echo 'Usage: welcome-toggle [on|off|status]' >&2
+    exit 1
+    ;;
+esac
+
+echo "$new" > "$state_file"
+[ "$new" = 0 ] && echo 'Welcome panel: off (open a new terminal to see it)'
+[ "$new" = 1 ] && echo 'Welcome panel: on (open a new terminal to see it)'

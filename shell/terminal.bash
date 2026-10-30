@@ -16,7 +16,11 @@ source "$HERE/aliases.sh"
 alias reload='source ~/.bashrc'
 
 # Optional decoration; skip SSH sessions and noninteractive output.
-if [ -t 1 ] && [ "${DOTFILES_WELCOME:-1}" != 0 ] && [ -z "${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY}" ]; then
+# Default comes from `welcome-toggle` (saved in $dotfiles_welcome_state); DOTFILES_WELCOME overrides it for one session.
+dotfiles_welcome_state="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/welcome"
+dotfiles_welcome_default=1
+[ -r "$dotfiles_welcome_state" ] && dotfiles_welcome_default=$(cat "$dotfiles_welcome_state")
+if [ -t 1 ] && [ "${DOTFILES_WELCOME:-$dotfiles_welcome_default}" != 0 ] && [ -z "${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY}" ]; then
   if command -v fastfetch >/dev/null 2>&1; then
     if command -v python3 >/dev/null 2>&1 && [ -x "$HOME/.local/bin/pokemon-welcome" ]; then
       "$HOME/.local/bin/pokemon-welcome"
@@ -25,6 +29,7 @@ if [ -t 1 ] && [ "${DOTFILES_WELCOME:-1}" != 0 ] && [ -z "${SSH_CONNECTION}${SSH
     fi
   fi
 fi
+unset dotfiles_welcome_state dotfiles_welcome_default
 
 if command -v starship >/dev/null 2>&1; then
   eval "$(starship init bash)"

@@ -12,7 +12,11 @@ source "${0:A:h}/aliases.sh"
 alias reload='source ~/.zshrc'
 
 # Optional decoration; skip SSH sessions and noninteractive output.
-if [[ -o interactive && -t 1 && ${DOTFILES_WELCOME:-1} != 0 && -z ${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY} ]]; then
+# Default comes from `welcome-toggle` (saved in $dotfiles_welcome_state); DOTFILES_WELCOME overrides it for one session.
+dotfiles_welcome_state="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/welcome"
+dotfiles_welcome_default=1
+[[ -r $dotfiles_welcome_state ]] && dotfiles_welcome_default=$(<$dotfiles_welcome_state)
+if [[ -o interactive && -t 1 && ${DOTFILES_WELCOME:-$dotfiles_welcome_default} != 0 && -z ${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY} ]]; then
   if (( $+commands[fastfetch] )); then
     if (( $+commands[python3] )) && [[ -x "$HOME/.local/bin/pokemon-welcome" ]]; then
       "$HOME/.local/bin/pokemon-welcome"
@@ -21,6 +25,7 @@ if [[ -o interactive && -t 1 && ${DOTFILES_WELCOME:-1} != 0 && -z ${SSH_CONNECTI
     fi
   fi
 fi
+unset dotfiles_welcome_state dotfiles_welcome_default
 
 if (( $+commands[starship] )); then
   eval "$(starship init zsh)"

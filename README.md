@@ -45,9 +45,20 @@ Open a new terminal. Installers copy files rather than symlinking them. Re-run t
 - Desktop welcome: aligned system information and Pokemon details on the left, random compact sprite on the right.
 - OS icon and system details are detected locally; Pokemon name, number and types match the random sprite.
 - Without Pokemon assets the welcome falls back to Fastfetch's detected system logo.
-- Welcome art is skipped in SSH sessions. Set `DOTFILES_WELCOME=0` before the source line to disable it locally.
+- Welcome art is skipped in SSH sessions, always, regardless of the toggle below.
 
-Manual preview:
+Turn the welcome panel on or off for local sessions, saved across terminals:
+
+```sh
+welcome-toggle        # flips it
+welcome-toggle on
+welcome-toggle off
+welcome-toggle status
+```
+
+`DOTFILES_WELCOME=0` (or `=1`) before the source line overrides the saved setting for one session only.
+
+Manual preview, regardless of the toggle or SSH:
 
 ```sh
 pokemon-welcome
@@ -65,6 +76,7 @@ The scripts honor `XDG_CONFIG_HOME` and `XDG_DATA_HOME`. Keep machine-specific J
 - `shell/terminal.zsh`, `shell/terminal.bash`: guarded tool setup, per shell.
 - `shell/aliases.sh`: shell-agnostic aliases (navigation, safety, git, GPU, misc), used by both of the above.
 - `bin/pokemon-welcome`: offline startup panel once assets are downloaded.
+- `bin/welcome-toggle`: on/off switch for the startup panel, saved in `$XDG_STATE_HOME/dotfiles/welcome`.
 - `scripts/setup-pokemon.py`: optional asset download and half-size conversion.
 
 ## Credits
