@@ -26,5 +26,8 @@ case "$1" in
 esac
 
 echo "$new" > "$state_file"
-[ "$new" = 0 ] && echo 'Welcome panel: off (open a new terminal to see it)'
-[ "$new" = 1 ] && echo 'Welcome panel: on (open a new terminal to see it)'
+if [ "$new" = 0 ]; then
+    echo 'Welcome panel: off (open a new terminal to see it)'
+else
+    echo 'Welcome panel: on (open a new terminal to see it)'
+fi
