@@ -72,17 +72,34 @@ The scripts honor `XDG_CONFIG_HOME` and `XDG_DATA_HOME`. Keep machine-specific J
 
 ## Files
 
-- `config/starship.toml`: prompt colors, modules, SSH detection, and OS symbols.
+- `config/palette.json`: every color used by this repository, defined once.
+- `config/*.in`: templates with `{{color}}` markers; `scripts/build-theme.py` turns them into the files below.
+- `config/starship.toml`: prompt colors, modules, SSH detection, and OS symbols. Generated.
 - `config/ghostty/config.ghostty`: 85% opacity and background blur (macOS).
-- `config/linux/gnome-terminal.dconf`: matching colors, 5% transparency, and font for GNOME Terminal (Linux).
+- `config/linux/gnome-terminal.dconf`: matching colors, 5% transparency, and font for GNOME Terminal (Linux). Generated.
 - `config/linux/blur-my-shell.dconf`: matching blur strength and tint for the "Blur my Shell" extension (Linux).
-- `config/fastfetch/config.jsonc`: fallback startup information.
+- `config/fastfetch/config.jsonc`: fallback startup information. Generated.
 - `shell/terminal.zsh`, `shell/terminal.bash`: guarded tool setup, per shell.
 - `shell/aliases.sh`: shell-agnostic aliases (navigation, safety, git, GPU, misc), used by both of the above.
 - `bin/pokemon-welcome`: offline startup panel once assets are downloaded.
 - `bin/welcome-toggle`: on/off switch for the startup panel, saved in `$XDG_STATE_HOME/dotfiles/welcome`.
 - `bin/pokemon-toggle`: on/off switch for just the Pokemon sprite (falls back to fastfetch), saved in `$XDG_STATE_HOME/dotfiles/pokemon`.
 - `scripts/setup-pokemon.py`: optional asset download and half-size conversion.
+- `scripts/build-theme.py`: writes the generated files above from the palette.
+
+## Colors
+
+Every color lives once, in `config/palette.json`. The three theme files are generated from the `config/*.in` templates, so do not edit them directly; the generator overwrites them.
+
+```sh
+# edit config/palette.json, then:
+python3 scripts/build-theme.py
+python3 scripts/install.py --desktop   # apply the result
+```
+
+Commit the palette and the generated files together. `python3 scripts/build-theme.py --check` fails if they disagree.
+
+A marker takes an optional form: `{{green}}` gives `#a7c080`, `{{green:upper}}` gives `#A7C080` for the dconf file, and `{{green:rgb}}` gives the ANSI escape `38;2;167;192;128` that fastfetch needs for logo colors.
 
 ## Credits
 

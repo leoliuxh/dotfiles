@@ -1,0 +1,27 @@
+{
+  "_comment": [
+    "Single source for every color in this repository.",
+    "Edit a value here, then run: python3 scripts/build-theme.py",
+    "That writes config/starship.toml, config/fastfetch/config.jsonc and",
+    "config/linux/gnome-terminal.dconf from the matching .in templates.",
+    "Do not edit those three files directly; the generator overwrites them.",
+    "Palette: Everforest Dark Hard (https://github.com/sainnhe/everforest)."
+  ],
+
+  "bg": "#21272b",
+  "bg_block1": "#414b50",
+  "bg_block2": "#374145",
+  "bg_block3": "#2e383c",
+
+  "fg": "#e6dfcb",
+  "grey": "#97a093",
+  "grey_bright": "#a8b3aa",
+
+  "green": "#a7c080",
+  "aqua": "#8fc9a0",
+  "yellow": "#dbbc7f",
+  "orange": "#e69875",
+  "red": "#e67e80",
+  "blue": "#7fbbb3",
+  "purple": "#d699b6"
+}

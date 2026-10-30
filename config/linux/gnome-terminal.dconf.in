@@ -1,0 +1,11 @@
+[:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+background-color='{{bg:upper}}'
+background-transparency-percent=5
+bold-is-bright=true
+font='JetBrainsMono Nerd Font Mono 12'
+foreground-color='{{fg:upper}}'
+palette=['{{bg_block3:upper}}', '{{red:upper}}', '{{green:upper}}', '{{yellow:upper}}', '{{blue:upper}}', '{{purple:upper}}', '{{aqua:upper}}', '{{fg:upper}}', '{{grey_bright:upper}}', '{{red:upper}}', '{{green:upper}}', '{{yellow:upper}}', '{{blue:upper}}', '{{purple:upper}}', '{{aqua:upper}}', '{{fg:upper}}']
+use-system-font=false
+use-theme-colors=false
+use-theme-transparency=false
+use-transparent-background=true

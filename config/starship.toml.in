@@ -1,0 +1,119 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+[░▒▓]({{green}})\
+${custom.ssh}\
+${custom.local_folder}\
+$directory\
+[](fg:{{bg_block1}} bg:{{bg_block2:upper}})\
+$git_branch\
+$git_status\
+[](fg:{{bg_block2:upper}} bg:{{bg_block3}})\
+$nodejs\
+$bun\
+$rust\
+$golang\
+$php\
+[ ](fg:{{bg_block3}})\
+\n$character"""
+
+[directory]
+style = "fg:{{aqua}} bg:{{bg_block1}}"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+[git_branch]
+symbol = ""
+style = "bg:{{bg_block2:upper}}"
+format = '[[ $symbol $branch ](fg:{{yellow}} bg:{{bg_block2:upper}})]($style)'
+
+[git_status]
+style = "bg:{{bg_block2:upper}}"
+format = '[[($all_status$ahead_behind )](fg:{{yellow}} bg:{{bg_block2:upper}})]($style)'
+
+[jj_bookmark]
+symbol = ""
+style = "bg:{{bg_block2:upper}}"
+format = '[[ $symbol $bookmark(@$remote)$diverged( \\(+$overflow_count others\\)) ](fg:{{yellow}} bg:{{bg_block2:upper}})]($style)'
+
+[jj_status]
+style = "bg:{{bg_block2:upper}}"
+format = '[[($all )](fg:{{yellow}} bg:{{bg_block2:upper}})]($style)'
+
+[nodejs]
+symbol = ""
+style = "bg:{{bg_block3}}"
+format = '[[ $symbol ($version) ](fg:{{orange}} bg:{{bg_block3}})]($style)'
+
+[bun]
+symbol = ""
+style = "bg:{{bg_block3}}"
+format = '[[ $symbol ($version) ](fg:{{orange}} bg:{{bg_block3}})]($style)'
+
+[rust]
+symbol = ""
+style = "bg:{{bg_block3}}"
+format = '[[ $symbol ($version) ](fg:{{orange}} bg:{{bg_block3}})]($style)'
+
+[golang]
+symbol = ""
+style = "bg:{{bg_block3}}"
+format = '[[ $symbol ($version) ](fg:{{orange}} bg:{{bg_block3}})]($style)'
+
+[php]
+symbol = ""
+style = "bg:{{bg_block3}}"
+format = '[[ $symbol ($version) ](fg:{{orange}} bg:{{bg_block3}})]($style)'
+
+[time]
+disabled = true
+time_format = "%R" # Hour:Minute Format
+style = "bg:{{bg_block3}}"
+format = '[[  $time ](fg:{{fg}} bg:{{bg_block3}})]($style)'
+
+[os]
+style = "bg:{{green}} fg:{{bg}}"
+format = "[ $symbol ]($style)"
+disabled = false
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = ""
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+AOSC = ""
+Arch = "󰣇"
+Artix = "󰣇"
+EndeavourOS = ""
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+Pop = ""
+
+[custom.ssh]
+when = 'test -n "$SSH_CONNECTION$SSH_CLIENT$SSH_TTY"'
+command = 'printf "%s@%s" "$(id -un)" "$(hostname -s)"'
+shell = ['sh']
+format = '[ $output ](bg:{{green}} fg:{{bg}})[](fg:{{green}} bg:{{bg_block1}})'
+
+[custom.local_folder]
+when = 'test -z "$SSH_CONNECTION$SSH_CLIENT$SSH_TTY"'
+format = '[ 󰉋 ](bg:{{green}} fg:{{bg}})[](fg:{{green}} bg:{{bg_block1}})'
+shell = ['sh']

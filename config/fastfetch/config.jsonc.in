@@ -1,0 +1,35 @@
+{
+  "logo": {
+    "type": "small",
+    "color": {
+      "1": "{{green:rgb}}",
+      "2": "{{yellow:rgb}}"
+    }
+  },
+  "display": {
+    "color": {
+      "title": "{{green}}",
+      "keys": "{{aqua}}",
+      "separator": "{{grey}}",
+      "output": "{{fg}}"
+    },
+    "key": {
+      "width": 9
+    }
+  },
+  "modules": [
+    "title",
+    { "type": "separator", "string": "─" },
+    {
+      "type": "datetime",
+      "key": "Date",
+      "format": "{weekday}, {month-name-short} {day-in-month}"
+    },
+    "os",
+    "host",
+    "shell",
+    "terminal",
+    "uptime",
+    "memory"
+  ]
+}
