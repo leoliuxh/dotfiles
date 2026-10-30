@@ -1,10 +1,10 @@
 [:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
-background-color='#272E33'
+background-color='#21272B'
 background-transparency-percent=5
 bold-is-bright=true
 font='JetBrainsMono Nerd Font Mono 12'
-foreground-color='#DCD3BC'
-palette=['#2E383C', '#E67E80', '#A7C080', '#DBBC7F', '#7FBBB3', '#D699B6', '#8FC9A0', '#DCD3BC', '#9DA9A0', '#E67E80', '#A7C080', '#DBBC7F', '#7FBBB3', '#D699B6', '#8FC9A0', '#DCD3BC']
+foreground-color='#E6DFCB'
+palette=['#2E383C', '#E67E80', '#A7C080', '#DBBC7F', '#7FBBB3', '#D699B6', '#8FC9A0', '#E6DFCB', '#A8B3AA', '#E67E80', '#A7C080', '#DBBC7F', '#7FBBB3', '#D699B6', '#8FC9A0', '#E6DFCB']
 use-system-font=false
 use-theme-colors=false
 use-theme-transparency=false

@@ -76,10 +76,10 @@ format = '[[ $symbol ($version) ](fg:#e69875 bg:#2e383c)]($style)'
 disabled = true
 time_format = "%R" # Hour:Minute Format
 style = "bg:#2e383c"
-format = '[[  $time ](fg:#dcd3bc bg:#2e383c)]($style)'
+format = '[[  $time ](fg:#e6dfcb bg:#2e383c)]($style)'
 
 [os]
-style = "bg:#a7c080 fg:#272e33"
+style = "bg:#a7c080 fg:#21272b"
 format = "[ $symbol ]($style)"
 disabled = false
 
@@ -111,9 +111,9 @@ Pop = ""
 when = 'test -n "$SSH_CONNECTION$SSH_CLIENT$SSH_TTY"'
 command = 'printf "%s@%s" "$(id -un)" "$(hostname -s)"'
 shell = ['sh']
-format = '[ $output ](bg:#a7c080 fg:#272e33)[](fg:#a7c080 bg:#414b50)'
+format = '[ $output ](bg:#a7c080 fg:#21272b)[](fg:#a7c080 bg:#414b50)'
 
 [custom.local_folder]
 when = 'test -z "$SSH_CONNECTION$SSH_CLIENT$SSH_TTY"'
-format = '[ 󰉋 ](bg:#a7c080 fg:#272e33)[](fg:#a7c080 bg:#414b50)'
+format = '[ 󰉋 ](bg:#a7c080 fg:#21272b)[](fg:#a7c080 bg:#414b50)'
 shell = ['sh']
