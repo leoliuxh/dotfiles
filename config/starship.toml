@@ -1,8 +1,9 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[░▒▓](#285b63)\
+[░▒▓](#a3aed2)\
 ${custom.ssh}\
+${custom.local_folder}\
 $directory\
 [](fg:#285b63 bg:#394260)\
 $git_branch\
@@ -110,4 +111,9 @@ Pop = ""
 when = 'test -n "$SSH_CONNECTION$SSH_CLIENT$SSH_TTY"'
 command = 'printf "%s@%s" "$(id -un)" "$(hostname -s)"'
 shell = ['sh']
-format = '[ $output ](bg:#a3aed2 fg:#090c0c)[](bg:#285b63 fg:#a3aed2)'
+format = '[ $output ](bg:#a3aed2 fg:#090c0c)[](fg:#a3aed2 bg:#285b63)'
+
+[custom.local_folder]
+when = 'test -z "$SSH_CONNECTION$SSH_CLIENT$SSH_TTY"'
+format = '[ 󰉋 ](bg:#a3aed2 fg:#090c0c)[](fg:#a3aed2 bg:#285b63)'
+shell = ['sh']
