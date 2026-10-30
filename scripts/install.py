@@ -5,6 +5,7 @@ import datetime
 import os
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 default_shell = 'bash' if os.environ.get('SHELL', '').endswith('bash') else 'zsh'
@@ -45,6 +46,10 @@ def load_dconf(path, source):
     print(f'Backup: {saved}')
     subprocess.run(['dconf', 'load', path], input=source.read_text(), text=True, check=True)
     print(f'Loaded: {path} from {source}')
+
+# The theme files are not kept in git. Build them from config/palette.json
+# first, so that what gets installed always matches the palette.
+subprocess.run([sys.executable, str(repo / 'scripts/build-theme.py')], check=True)
 
 install(repo / 'config/starship.toml', config / 'starship.toml')
 install(repo / 'shell/aliases.sh', config / 'dotfiles/aliases.sh')

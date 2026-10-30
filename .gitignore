@@ -6,3 +6,10 @@ __pycache__/
 .env.*
 *.local
 private/
+
+# Theme files generated from config/palette.json by scripts/build-theme.py.
+# scripts/install.py builds them before installing.
+/config/starship.toml
+/config/fastfetch/config.jsonc
+/config/linux/gnome-terminal.dconf
+/config/ghostty/config.ghostty

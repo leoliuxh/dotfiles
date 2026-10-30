@@ -12,13 +12,14 @@ Markers:
     {{green:rgb}}        38;2;167;192;128     ANSI escape, for fastfetch logos
     {{opacity:percent}}  5                    (1 - value) as a percent, for dconf
 
-Run it after every change to the palette, then commit both the palette
-and the generated files.
+The generated files are not kept in git. scripts/install.py runs this
+script before it installs anything, so a change to the palette reaches
+the terminal on the next install. Run it by hand only to look at the
+result without installing.
 """
 
 import json
 import re
-import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
@@ -67,25 +68,13 @@ def main():
     if not templates:
         raise SystemExit('no templates found under config/')
 
-    check = '--check' in sys.argv
-    stale = []
     for template in templates:
         out = template.with_suffix('')
         new = render(template.read_text(encoding='utf-8'), palette, template.name)
-        old = out.read_text(encoding='utf-8') if out.exists() else None
-        if new == old:
+        if out.exists() and out.read_text(encoding='utf-8') == new:
             continue
-        if check:
-            stale.append(out.relative_to(REPO))
-        else:
-            out.write_text(new, encoding='utf-8')
-            print(f'Wrote: {out.relative_to(REPO)}')
-
-    if check and stale:
-        names = ', '.join(str(p) for p in stale)
-        raise SystemExit(f'Out of date with the palette: {names}')
-    if check:
-        print('All theme files match the palette.')
+        out.write_text(new, encoding='utf-8')
+        print(f'Wrote: {out.relative_to(REPO)}')
 
 
 if __name__ == '__main__':
