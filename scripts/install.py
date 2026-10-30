@@ -54,6 +54,7 @@ if args.desktop:
     install(repo / 'config/fastfetch/config.jsonc', config / 'fastfetch/config.jsonc')
     install(repo / 'bin/pokemon-welcome', home / '.local/bin/pokemon-welcome')
     install(repo / 'bin/welcome-toggle', home / '.local/bin/welcome-toggle')
+    install(repo / 'bin/pokemon-toggle', home / '.local/bin/pokemon-toggle')
     system = os.uname().sysname
     if system == 'Darwin':
         ghostty = home / 'Library/Application Support/com.mitchellh.ghostty/config.ghostty'

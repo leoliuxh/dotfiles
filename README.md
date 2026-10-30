@@ -58,6 +58,8 @@ welcome-toggle status
 
 `DOTFILES_WELCOME=0` (or `=1`) before the source line overrides the saved setting for one session only.
 
+To keep the system-info panel but drop the Pokemon sprite, use `pokemon-toggle` instead (same `on`/`off`/`status`/no-argument-flips usage, `DOTFILES_POKEMON` for a one-session override). With the sprite off, startup falls back to plain fastfetch.
+
 Manual preview, regardless of the toggle or SSH:
 
 ```sh
@@ -77,6 +79,7 @@ The scripts honor `XDG_CONFIG_HOME` and `XDG_DATA_HOME`. Keep machine-specific J
 - `shell/aliases.sh`: shell-agnostic aliases (navigation, safety, git, GPU, misc), used by both of the above.
 - `bin/pokemon-welcome`: offline startup panel once assets are downloaded.
 - `bin/welcome-toggle`: on/off switch for the startup panel, saved in `$XDG_STATE_HOME/dotfiles/welcome`.
+- `bin/pokemon-toggle`: on/off switch for just the Pokemon sprite (falls back to fastfetch), saved in `$XDG_STATE_HOME/dotfiles/pokemon`.
 - `scripts/setup-pokemon.py`: optional asset download and half-size conversion.
 
 ## Credits

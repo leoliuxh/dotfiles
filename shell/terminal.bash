@@ -20,16 +20,19 @@ alias reload='source ~/.bashrc'
 dotfiles_welcome_state="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/welcome"
 dotfiles_welcome_default=1
 [ -r "$dotfiles_welcome_state" ] && dotfiles_welcome_default=$(cat "$dotfiles_welcome_state")
+dotfiles_pokemon_state="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/pokemon"
+dotfiles_pokemon_default=1
+[ -r "$dotfiles_pokemon_state" ] && dotfiles_pokemon_default=$(cat "$dotfiles_pokemon_state")
 if [ -t 1 ] && [ "${DOTFILES_WELCOME:-$dotfiles_welcome_default}" != 0 ] && [ -z "${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY}" ]; then
   if command -v fastfetch >/dev/null 2>&1; then
-    if command -v python3 >/dev/null 2>&1 && [ -x "$HOME/.local/bin/pokemon-welcome" ]; then
+    if [ "${DOTFILES_POKEMON:-$dotfiles_pokemon_default}" != 0 ] && command -v python3 >/dev/null 2>&1 && [ -x "$HOME/.local/bin/pokemon-welcome" ]; then
       "$HOME/.local/bin/pokemon-welcome"
     else
       fastfetch
     fi
   fi
 fi
-unset dotfiles_welcome_state dotfiles_welcome_default
+unset dotfiles_welcome_state dotfiles_welcome_default dotfiles_pokemon_state dotfiles_pokemon_default
 
 if command -v starship >/dev/null 2>&1; then
   eval "$(starship init bash)"

@@ -1,0 +1,30 @@
+#!/bin/sh
+# Turn the Pokemon sprite in the startup panel on or off. When off, startup
+# still shows plain fastfetch system info; see welcome-toggle to turn the
+# whole panel off instead. Setting is saved across terminals.
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles"
+state_file="$state_dir/pokemon"
+mkdir -p "$state_dir"
+
+current=1
+[ -r "$state_file" ] && current=$(cat "$state_file")
+
+case "$1" in
+  on)  new=1 ;;
+  off) new=0 ;;
+  status)
+    [ "$current" = 0 ] && echo 'Pokemon sprite: off' || echo 'Pokemon sprite: on'
+    exit 0
+    ;;
+  '')
+    [ "$current" = 0 ] && new=1 || new=0
+    ;;
+  *)
+    echo 'Usage: pokemon-toggle [on|off|status]' >&2
+    exit 1
+    ;;
+esac
+
+echo "$new" > "$state_file"
+[ "$new" = 0 ] && echo 'Pokemon sprite: off (open a new terminal to see it; fastfetch still shows)'
+[ "$new" = 1 ] && echo 'Pokemon sprite: on (open a new terminal to see it)'

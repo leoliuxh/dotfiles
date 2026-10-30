@@ -16,16 +16,19 @@ alias reload='source ~/.zshrc'
 dotfiles_welcome_state="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/welcome"
 dotfiles_welcome_default=1
 [[ -r $dotfiles_welcome_state ]] && dotfiles_welcome_default=$(<$dotfiles_welcome_state)
+dotfiles_pokemon_state="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/pokemon"
+dotfiles_pokemon_default=1
+[[ -r $dotfiles_pokemon_state ]] && dotfiles_pokemon_default=$(<$dotfiles_pokemon_state)
 if [[ -o interactive && -t 1 && ${DOTFILES_WELCOME:-$dotfiles_welcome_default} != 0 && -z ${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY} ]]; then
   if (( $+commands[fastfetch] )); then
-    if (( $+commands[python3] )) && [[ -x "$HOME/.local/bin/pokemon-welcome" ]]; then
+    if [[ ${DOTFILES_POKEMON:-$dotfiles_pokemon_default} != 0 ]] && (( $+commands[python3] )) && [[ -x "$HOME/.local/bin/pokemon-welcome" ]]; then
       "$HOME/.local/bin/pokemon-welcome"
     else
       fastfetch
     fi
   fi
 fi
-unset dotfiles_welcome_state dotfiles_welcome_default
+unset dotfiles_welcome_state dotfiles_welcome_default dotfiles_pokemon_state dotfiles_pokemon_default
 
 if (( $+commands[starship] )); then
   eval "$(starship init zsh)"
