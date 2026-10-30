@@ -2,7 +2,7 @@
 background-color='#1E1E1E'
 background-transparency-percent=15
 bold-is-bright=true
-font='DejaVu Sans Mono 12'
+font='DejaVu Sans Mono,Symbols Nerd Font Mono 12'
 foreground-color='#FFFFFF'
 palette=['#2A2F38', '#FF6B75', '#A8E88A', '#F0CE87', '#7CC0FF', '#D89BEE', '#6FD5E2', '#E8EBEF', '#8A93A3', '#FF9BA3', '#C8F5A8', '#FFE3A3', '#A8D8FF', '#EFC0F8', '#9BEEF8', '#FFFFFF']
 use-system-font=false
