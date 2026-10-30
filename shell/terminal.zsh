@@ -8,6 +8,9 @@ if (( $+commands[eza] )); then
   alias lt='eza --tree --level=2 --icons=auto --group-directories-first'
 fi
 
+source "${0:A:h}/aliases.sh"
+alias reload='source ~/.zshrc'
+
 # Optional decoration; skip SSH sessions and noninteractive output.
 if [[ -o interactive && -t 1 && ${DOTFILES_WELCOME:-1} != 0 && -z ${SSH_CONNECTION}${SSH_CLIENT}${SSH_TTY} ]]; then
   if (( $+commands[fastfetch] )); then

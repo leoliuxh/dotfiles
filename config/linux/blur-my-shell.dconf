@@ -1,0 +1,5 @@
+[applications]
+color=(1.0, 1.0, 1.0, 0.080000000000000002)
+opacity=180
+sigma=40
+whitelist=['Gnome-terminal']

@@ -4,10 +4,13 @@ import argparse
 import datetime
 import os
 import shutil
+import subprocess
 from pathlib import Path
 
+default_shell = 'bash' if os.environ.get('SHELL', '').endswith('bash') else 'zsh'
 parser = argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--desktop', action='store_true', help='Also install Ghostty and Fastfetch settings')
+parser.add_argument('--desktop', action='store_true', help='Also install Fastfetch (and, on Linux, the GNOME Terminal look); Ghostty settings on macOS')
+parser.add_argument('--shell', choices=['zsh', 'bash'], default=default_shell, help=f'Shell to wire up (default: {default_shell}, from $SHELL)')
 args = parser.parse_args()
 repo = Path(__file__).resolve().parents[1]
 home = Path.home()
@@ -33,23 +36,39 @@ def install(source, target):
     shutil.copy2(source, target)
     print(f'Installed: {target}')
 
+def load_dconf(path, source):
+    """Load a dconf dump, after saving the current state for rollback."""
+    before = subprocess.run(['dconf', 'dump', path], capture_output=True, text=True, check=True).stdout
+    backup.mkdir(parents=True, exist_ok=True)
+    saved = backup / ('dconf' + path.rstrip('/').replace('/', '_') + '.dconf')
+    saved.write_text(before)
+    print(f'Backup: {saved}')
+    subprocess.run(['dconf', 'load', path], input=source.read_text(), text=True, check=True)
+    print(f'Loaded: {path} from {source}')
+
 install(repo / 'config/starship.toml', config / 'starship.toml')
-install(repo / 'shell/terminal.zsh', config / 'dotfiles/terminal.zsh')
+install(repo / 'shell/aliases.sh', config / 'dotfiles/aliases.sh')
+terminal_script = f'terminal.{args.shell}'
+install(repo / 'shell' / terminal_script, config / 'dotfiles' / terminal_script)
 if args.desktop:
     install(repo / 'config/fastfetch/config.jsonc', config / 'fastfetch/config.jsonc')
     install(repo / 'bin/pokemon-welcome', home / '.local/bin/pokemon-welcome')
-    ghostty = config / 'ghostty/config.ghostty'
-    if os.uname().sysname == 'Darwin':
+    system = os.uname().sysname
+    if system == 'Darwin':
         ghostty = home / 'Library/Application Support/com.mitchellh.ghostty/config.ghostty'
-    install(repo / 'config/ghostty/config.ghostty', ghostty)
+        install(repo / 'config/ghostty/config.ghostty', ghostty)
+    elif system == 'Linux' and shutil.which('dconf'):
+        load_dconf('/org/gnome/terminal/legacy/profiles:/', repo / 'config/linux/gnome-terminal.dconf')
+        load_dconf('/org/gnome/shell/extensions/blur-my-shell/', repo / 'config/linux/blur-my-shell.dconf')
+        print('GNOME-only: enable the "Blur my Shell" extension yourself (not installed by this script).')
 
-rc = home / '.zshrc'
-line = 'source "${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles/terminal.zsh"'
+rc = home / f'.{args.shell}rc'
+line = f'source "${{XDG_CONFIG_HOME:-$HOME/.config}}/dotfiles/{terminal_script}"'
 text = rc.read_text() if rc.exists() else ''
 if line not in text:
     if rc.exists():
         backup.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(rc, backup / '.zshrc')
+        shutil.copy2(rc, backup / rc.name)
     with rc.open('a') as f:
         f.write('\n# Portable terminal customization\n' + line + '\n')
     print(f'Added source line to {rc}')
