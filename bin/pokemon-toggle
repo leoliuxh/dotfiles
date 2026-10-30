@@ -26,5 +26,8 @@ case "$1" in
 esac
 
 echo "$new" > "$state_file"
-[ "$new" = 0 ] && echo 'Pokemon sprite: off (open a new terminal to see it; fastfetch still shows)'
-[ "$new" = 1 ] && echo 'Pokemon sprite: on (open a new terminal to see it)'
+if [ "$new" = 0 ]; then
+    echo 'Pokemon sprite: off (open a new terminal to see it; fastfetch still shows)'
+else
+    echo 'Pokemon sprite: on (open a new terminal to see it)'
+fi
