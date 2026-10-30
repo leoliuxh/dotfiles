@@ -1,24 +1,24 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[░▒▓](#a3aed2)\
+[░▒▓](#a7c080)\
 ${custom.ssh}\
 ${custom.local_folder}\
 $directory\
-[](fg:#285b63 bg:#394260)\
+[](fg:#414b50 bg:#374145)\
 $git_branch\
 $git_status\
-[](fg:#394260 bg:#212736)\
+[](fg:#374145 bg:#2e383c)\
 $nodejs\
 $bun\
 $rust\
 $golang\
 $php\
-[ ](fg:#212736)\
+[ ](fg:#2e383c)\
 \n$character"""
 
 [directory]
-style = "fg:#d5e5e7 bg:#285b63"
+style = "fg:#8fc9a0 bg:#414b50"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
@@ -31,55 +31,55 @@ truncation_symbol = "…/"
 
 [git_branch]
 symbol = ""
-style = "bg:#394260"
-format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
+style = "bg:#374145"
+format = '[[ $symbol $branch ](fg:#dbbc7f bg:#374145)]($style)'
 
 [git_status]
-style = "bg:#394260"
-format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
+style = "bg:#374145"
+format = '[[($all_status$ahead_behind )](fg:#dbbc7f bg:#374145)]($style)'
 
 [jj_bookmark]
 symbol = ""
-style = "bg:#394260"
-format = '[[ $symbol $bookmark(@$remote)$diverged( \\(+$overflow_count others\\)) ](fg:#769ff0 bg:#394260)]($style)'
+style = "bg:#374145"
+format = '[[ $symbol $bookmark(@$remote)$diverged( \\(+$overflow_count others\\)) ](fg:#dbbc7f bg:#374145)]($style)'
 
 [jj_status]
-style = "bg:#394260"
-format = '[[($all )](fg:#769ff0 bg:#394260)]($style)'
+style = "bg:#374145"
+format = '[[($all )](fg:#dbbc7f bg:#374145)]($style)'
 
 [nodejs]
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#2e383c"
+format = '[[ $symbol ($version) ](fg:#e69875 bg:#2e383c)]($style)'
 
 [bun]
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#2e383c"
+format = '[[ $symbol ($version) ](fg:#e69875 bg:#2e383c)]($style)'
 
 [rust]
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#2e383c"
+format = '[[ $symbol ($version) ](fg:#e69875 bg:#2e383c)]($style)'
 
 [golang]
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#2e383c"
+format = '[[ $symbol ($version) ](fg:#e69875 bg:#2e383c)]($style)'
 
 [php]
 symbol = ""
-style = "bg:#212736"
-format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+style = "bg:#2e383c"
+format = '[[ $symbol ($version) ](fg:#e69875 bg:#2e383c)]($style)'
 
 [time]
 disabled = true
 time_format = "%R" # Hour:Minute Format
-style = "bg:#1d2230"
-format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
+style = "bg:#2e383c"
+format = '[[  $time ](fg:#dcd3bc bg:#2e383c)]($style)'
 
 [os]
-style = "bg:#a3aed2 fg:#090c0c"
+style = "bg:#a7c080 fg:#272e33"
 format = "[ $symbol ]($style)"
 disabled = false
 
@@ -111,9 +111,9 @@ Pop = ""
 when = 'test -n "$SSH_CONNECTION$SSH_CLIENT$SSH_TTY"'
 command = 'printf "%s@%s" "$(id -un)" "$(hostname -s)"'
 shell = ['sh']
-format = '[ $output ](bg:#a3aed2 fg:#090c0c)[](fg:#a3aed2 bg:#285b63)'
+format = '[ $output ](bg:#a7c080 fg:#272e33)[](fg:#a7c080 bg:#414b50)'
 
 [custom.local_folder]
 when = 'test -z "$SSH_CONNECTION$SSH_CLIENT$SSH_TTY"'
-format = '[ 󰉋 ](bg:#a3aed2 fg:#090c0c)[](fg:#a3aed2 bg:#285b63)'
+format = '[ 󰉋 ](bg:#a7c080 fg:#272e33)[](fg:#a7c080 bg:#414b50)'
 shell = ['sh']

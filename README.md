@@ -1,6 +1,6 @@
 # Terminal dotfiles
 
-Tokyo Night Starship prompt, icon-based file listings, translucent terminal background, and an optional Pokemon welcome panel. Works with zsh or bash, on macOS and Linux; available tools and fonts determine which features appear.
+Everforest Starship prompt, icon-based file listings, translucent terminal background, and an optional Pokemon welcome panel. Works with zsh or bash, on macOS and Linux; available tools and fonts determine which features appear.
 
 ## Install
 
@@ -74,7 +74,7 @@ The scripts honor `XDG_CONFIG_HOME` and `XDG_DATA_HOME`. Keep machine-specific J
 
 - `config/starship.toml`: prompt colors, modules, SSH detection, and OS symbols.
 - `config/ghostty/config.ghostty`: 85% opacity and background blur (macOS).
-- `config/linux/gnome-terminal.dconf`: matching colors, 15% transparency, and font for GNOME Terminal (Linux).
+- `config/linux/gnome-terminal.dconf`: matching colors, 5% transparency, and font for GNOME Terminal (Linux).
 - `config/linux/blur-my-shell.dconf`: matching blur strength and tint for the "Blur my Shell" extension (Linux).
 - `config/fastfetch/config.jsonc`: fallback startup information.
 - `shell/terminal.zsh`, `shell/terminal.bash`: guarded tool setup, per shell.
@@ -86,5 +86,5 @@ The scripts honor `XDG_CONFIG_HOME` and `XDG_DATA_HOME`. Keep machine-specific J
 
 ## Credits
 
-Prompt adapted from Starship's [Tokyo Night preset](https://starship.rs/presets/tokyo-night), part of the [ISC-licensed Starship project](https://github.com/starship/starship).
+Prompt structure adapted from Starship's [Tokyo Night preset](https://starship.rs/presets/tokyo-night), part of the [ISC-licensed Starship project](https://github.com/starship/starship). Colors are the [Everforest](https://github.com/sainnhe/everforest) Dark Hard palette (MIT license).
 Sprite files are downloaded from [pokemon-colorscripts-mac](https://github.com/nuke-dash/pokemon-colorscripts-mac), pinned to commit `6aa0cd93b255bee35c5716652b8b7dfecb5fcfa2`; its license is saved with the downloaded assets. Metadata comes from [PokeAPI](https://github.com/PokeAPI/pokeapi). Pokemon names and designs belong to their respective owners. Assets are not committed to this repository.
